@@ -5,7 +5,6 @@ using UnityEngine;
 public class CubeBlock : BuildBlock
 {
     public Tween spawnTween;
-    public Transform cube;
 
     public bool isSpawnCompleted { get; private set; } = false;
 
@@ -46,6 +45,6 @@ public class CubeBlock : BuildBlock
 
     void onSpawnUpdate(float[] values)
     {
-        cube.localScale = Vector3.one * values[0];
+        spawnTween.transform.localScale = Vector3.one * values[0];
     }
 }

@@ -11,6 +11,8 @@ public class BuildController : MonoBehaviour
     public Transform ghost;
     public GameObject cubePrefab;
 
+    public List<MeshRenderer> cubeRenderers { get; private set; } = new List<MeshRenderer>();
+
     SteamVR_Input_Sources handType;
     CubeBlock lastCubeBlock;
 
@@ -27,7 +29,13 @@ public class BuildController : MonoBehaviour
             if ((lastCubeBlock == null) || lastCubeBlock.isSpawnCompleted)
             {
                 lastCubeBlock = Instantiate(cubePrefab).GetComponent<CubeBlock>();
+                lastCubeBlock.gameObject.SetActive(true);
                 lastCubeBlock.transform.position = ghost.position;
+
+                var cubeParent = lastCubeBlock.transform.GetChild(0);
+                for (int i = 0; i < cubeParent.childCount; ++i) {
+                    cubeRenderers.Add(cubeParent.GetChild(i).GetComponent<MeshRenderer>());
+                }
             }
         }
         else
